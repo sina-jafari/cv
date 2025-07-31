@@ -206,7 +206,7 @@
   <script>
     function spawnEmojis(event) {
       const button = event.target;
-      const numEmojis = 70;
+      const numEmojis = 2;
       const container = document.body;
 
       for (let i = 0; i < numEmojis; i++) {
@@ -216,7 +216,7 @@
         emoji.style.left = (button.offsetLeft + button.offsetWidth/2 + (Math.random() - 0.5) * 100) + "px";
         emoji.style.top = (button.offsetTop + window.scrollY - 20) + "px";
         emoji.style.color = "#2c3e50";
-        emoji.style.fontSize = (18 + Math.random() * 10) + "px";
+        emoji.style.fontSize = (18 + Math.random() * 30) + "px";
 
         container.appendChild(emoji);
 
