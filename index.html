@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -112,3 +112,118 @@
 </body>
 </html>
 
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sina Jafari – CV</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      width: 250px;
+      text-align: center;
+    }
+
+    .shampoo {
+      width: 100%;
+      z-index: 1;
+    }
+
+    .cap {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      transition: transform 1s ease;
+      z-index: 2;
+    }
+
+    .cv-paper {
+      position: absolute;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%) translateY(0);
+      width: 120px;
+      height: 160px;
+      background: white;
+      border: 2px solid #2c3e50;
+      border-radius: 4px;
+      opacity: 0;
+      transition: all 1s ease;
+      z-index: 0;
+    }
+
+    .download-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #2c3e50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .download-button:hover {
+      background: #1a242f;
+    }
+
+    .active .cap {
+      transform: translateX(-50%) rotate(-45deg) translateY(-60px);
+    }
+
+    .active .cv-paper {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-80px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="cvContainer">
+    <img src="cap.png" class="cap" id="capImage" alt="Shampoo Cap">
+    <img src="shampoo.png" class="shampoo" alt="Shampoo Bottle">
+    <a href="Sina.pdf" download>
+      <div class="cv-paper"></div>
+    </a>
+    <button class="download-button" onclick="popCap()">Download CV</button>
+  </div>
+
+  <script>
+    function popCap() {
+      const container = document.getElementById('cvContainer');
+      container.classList.add('active');
+      setTimeout(() => {
+        window.location.href = 'Sina.pdf';
+      }, 1500);
+    }
+  </script>
+
+</body>
+</html>
