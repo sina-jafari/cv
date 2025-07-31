@@ -79,8 +79,7 @@
 <body>
 
   <h1>My CV</h1>
-  <p>You can download my resume below:</p>
-
+<p style="text-align: center;">You can download my resume below:</p>
   <div class="download-section">
 
     <a href="Sina.pdf" download class="download-button" onclick="spawnEmojis(event)">Download CV</a>
@@ -99,7 +98,7 @@
         emoji.style.left = (button.offsetLeft + button.offsetWidth/2 + (Math.random() - 0.5) * 100) + "px";
         emoji.style.top = (button.offsetTop + window.scrollY - 20) + "px";
         emoji.style.color = "#2c3e50";
-        emoji.style.fontSize = (18 + Math.random() * 10) + "px";
+        emoji.style.fontSize = (18 + Math.random() * 60) + "px";
 
         container.appendChild(emoji);
 
