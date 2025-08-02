@@ -153,3 +153,61 @@
 <body>
 
   <!-- Navigation Bar -->
+  <nav>
+    <ul class="navbar">
+      <li><a href="/">Home</a></li>
+      <li class="dropdown">
+        <a href="#">About</a>
+        <ul class="dropdown-menu">
+          <li><a href="/bio">Biography</a></li>
+          <li><a href="/skills">Skills</a></li>
+          <li><a href="/cv">CV</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#">Projects</a>
+        <ul class="dropdown-menu">
+          <li><a href="/photonics">Photonics</a></li>
+          <li><a href="/optics">Optics</a></li>
+          <li><a href="/coding">Coding</a></li>
+        </ul>
+      </li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main CV Section -->
+  <h1>My CV</h1>
+  <p>You can download my resume below:</p>
+
+  <div class="download-section">
+    <a href="Sina.pdf" download class="download-button" onclick="spawnEmojis(event)">Download CV</a>
+  </div>
+
+  <!-- Emoji Animation -->
+  <script>
+    function spawnEmojis(event) {
+      const button = event.target;
+      const numEmojis = 2;
+      const container = document.body;
+
+      for (let i = 0; i < numEmojis; i++) {
+        const emoji = document.createElement("div");
+        emoji.className = "emoji";
+        emoji.innerText = "👍";
+        emoji.style.left = (button.offsetLeft + button.offsetWidth / 2 + (Math.random() - 0.5) * 100) + "px";
+        emoji.style.top = (button.offsetTop + window.scrollY - 20) + "px";
+        emoji.style.color = "#2c3e50";
+        emoji.style.fontSize = (18 + Math.random() * 60) + "px";
+
+        container.appendChild(emoji);
+
+        setTimeout(() => {
+          emoji.remove();
+        }, 1500);
+      }
+    }
+  </script>
+
+</body>
+</html>
