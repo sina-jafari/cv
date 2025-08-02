@@ -4,6 +4,147 @@
   <meta charset="UTF-8">
   <title>Sina Jafari – CV</title>
   <style>
+
+    :root {
+      --bg-color: #fdfdfd;
+      --text-color: #333;
+      --nav-bg: #ffffff;
+      --accent-color: #007acc;
+      --button-hover: rgba(0, 122, 204, 0.1);
+      --dropdown-bg: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 40px auto;
+      max-width: 850px;
+      padding: 0 20px;
+      color: var(--text-color);
+      background: var(--bg-color);
+    }
+
+    h1 {
+      color: var(--accent-color);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    h2 {
+      color: #444;
+      margin-top: 30px;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li::before {
+      content: "✓";
+      color: var(--accent-color);
+      padding-right: 10px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+      /* Navigation styles */
+    nav {
+      margin-bottom: 40px;
+    }
+    .navbar {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      background-color: #007acc;
+      overflow: visible;
+    }
+    .navbar > li {
+      float: left;
+      position: relative;
+    }
+    .navbar > li > a {
+      display: block;
+      color: white;
+      padding: 14px 20px;
+      text-decoration: none;
+    }
+    .navbar > li > a:hover,
+    .dropdown:hover > a {
+      background-color: #005f99;
+    }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #007acc;
+      min-width: 160px;
+      z-index: 1;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .dropdown-menu li a {
+      display: block;
+      color: white;
+      padding: 12px 16px;
+      text-decoration: none;
+    }
+    .dropdown-menu li a:hover {
+      background-color: #005f99;
+    }
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+    h1 {
+      color: #1e90ff;
+      text-align: center;
+    }
+    /* Clearfix */
+    .navbar::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <ul class="navbar">
+      <li><a href="/">Home</a></li>
+      <li class="dropdown">
+        <a href="#">About</a>
+        <ul class="dropdown-menu">
+          <li><a href="/bio">Biography</a></li>
+          <li><a href="/skills">Skills</a></li>
+          <li><a href="/cv">CV</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#">Projects</a>
+        <ul class="dropdown-menu">
+          <li><a href="/photonics">Photonics</a></li>
+          <li><a href="/optics">Optics</a></li>
+          <li><a href="/coding">Coding</a></li>
+        </ul>
+      </li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+  </nav>
+
+
+
+
+
+   
     body {
       margin: 0;
       font-family: Arial, sans-serif;
