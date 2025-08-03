@@ -252,8 +252,6 @@ nav {
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -307,9 +305,11 @@ nav {
       padding: 0;
       margin: 0;
     }
+
     .navbar .dropdown-menu {
       list-style: none !important;
     }
+
     .navbar > li {
       position: relative;
     }
@@ -412,6 +412,21 @@ nav {
       z-index: 9999;
       pointer-events: none;
     }
+
+    .photon-message {
+      position: fixed;
+      left: 90px;
+      top: 70px;
+      max-width: 250px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      font-size: 14px;
+      z-index: 10000;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
   </style>
 </head>
 <body>
@@ -454,13 +469,17 @@ nav {
       sun.className = "sun";
       document.body.appendChild(sun);
 
-      // Wait a moment then launch the photon
       setTimeout(() => {
         sun.style.opacity = 1;
 
         const photon = document.createElement("div");
         photon.className = "photon";
         document.body.appendChild(photon);
+
+        const message = document.createElement("div");
+        message.className = "photon-message";
+        message.innerText = "Hi! I am photon! I probably have enough energy to excite the download button and extract Sina's CV for you. Let's see!";
+        document.body.appendChild(message);
 
         const startX = 60;
         const startY = 60;
@@ -473,29 +492,35 @@ nav {
         photon.style.left = startX + "px";
         photon.style.top = startY + "px";
 
-        // Animate photon
-        const duration = 5000;
-        const startTime = performance.now();
+        // Wait 3.5 seconds before moving
+        setTimeout(() => {
+          message.style.opacity = 0;
+          setTimeout(() => {
+            message.remove();
+          }, 500);
 
-        function animate(time) {
-          const t = Math.min((time - startTime) / duration, 1);
-          const currentX = startX + (targetX - startX) * t;
-          const currentY = startY + (targetY - startY) * t;
-          photon.style.left = currentX + "px";
-          photon.style.top = currentY + "px";
+          const duration = 2000;
+          const startTime = performance.now();
 
-          if (t < 1) {
-            requestAnimationFrame(animate);
-          } else {
-            photon.remove();
-            sun.remove();
-            // Start download after animation
-            window.location.href = "Sina.pdf";
+          function animate(time) {
+            const t = Math.min((time - startTime) / duration, 1);
+            const currentX = startX + (targetX - startX) * t;
+            const currentY = startY + (targetY - startY) * t;
+            photon.style.left = currentX + "px";
+            photon.style.top = currentY + "px";
+
+            if (t < 1) {
+              requestAnimationFrame(animate);
+            } else {
+              photon.remove();
+              sun.remove();
+              window.location.href = "Sina.pdf";
+            }
           }
-        }
 
-        requestAnimationFrame(animate);
-      }, 100);
+          requestAnimationFrame(animate);
+        }, 3500);
+      }, 200);
     }
   </script>
 
