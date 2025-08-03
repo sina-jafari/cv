@@ -255,172 +255,280 @@ nav {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sina CV Download</title>
+  <meta charset="UTF-8">
+  <title>Sina Jafari – CV</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fff;
+    :root {
+      --bg-color: #fdfdfd;
+      --text-color: #333;
+      --nav-bg: #007acc;
+      --nav-hover-bg: #005f99;
+      --accent-color: #2c3e50;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      overflow-x: hidden;
+    }
+
+    body {
+      font-size: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    nav {
+      width: 100vw;
+      background-color: var(--nav-bg);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      overflow: visible;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.85);
+      z-index: -1;
+    }
+
+    .navbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .navbar .dropdown-menu {
+      list-style: none !important;
+    }
+
+    .navbar > li {
+      position: relative;
+    }
+
+    .navbar > li > a {
+      font-size: 20px;
+      display: block;
+      padding: 14px 20px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .navbar > li > a:hover {
+      background-color: var(--nav-hover-bg);
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: var(--nav-bg);
+      min-width: 160px;
+      z-index: 999;
+      flex-direction: column;
+    }
+
+    .dropdown-menu li a {
+      padding: 12px 16px;
+      display: block;
+      color: white;
+      text-decoration: none;
+    }
+
+    .dropdown-menu li a:hover {
+      background-color: var(--nav-hover-bg);
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    h1 {
+      color: var(--accent-color);
+      text-align: center;
+      margin: 100px 0 10px;
+    }
+
+    p {
+      text-align: center;
+      margin-bottom: 80px;
     }
 
     .download-section {
       text-align: center;
-      margin-top: 120px;
+      margin-top: 200px; /* Moved button lower */
     }
 
     .download-button {
-      padding: 15px 30px;
+      display: inline-block;
+      padding: 14px 30px;
       font-size: 18px;
-      background-color: #3498db;
+      background-color: var(--accent-color);
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 6px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      text-decoration: none;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      position: relative;
+      z-index: 2;
+    }
+
+    .download-button.glow {
+      background-color: #ffdd00;
+      box-shadow: 0 0 20px #ffcc00;
+      color: black;
     }
 
     .download-button:hover {
-      background-color: #2980b9;
-    }
-
-    .download-button.energized {
-      background-color: #f1c40f !important;
-      color: #000;
-      box-shadow: 0 0 25px 8px rgba(241, 196, 15, 0.6);
-      transition: all 0.4s ease;
+      background-color: #1a242f;
     }
 
     .sun {
-      position: absolute;
-      top: 40px;
-      left: 40px;
-      width: 60px;
-      height: 60px;
-      background: radial-gradient(circle, #f39c12, #e67e22);
+      position: fixed;
+      top: 100px;
+      left: 30px;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle at center, #f9d71c, #f39c12);
       border-radius: 50%;
-      box-shadow: 0 0 20px rgba(243, 156, 18, 0.7);
+      box-shadow: 0 0 40px rgba(255, 200, 0, 0.8);
+      z-index: 9999;
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.3s ease;
     }
 
     .photon {
-      position: absolute;
+      position: fixed;
       width: 20px;
       height: 20px;
-      background-color: red;
+      background: #de091b;
       border-radius: 50%;
-      z-index: 10;
-    }
-
-    .photon::after {
-      content: '';
-      position: absolute;
-      left: -30px;
-      top: 5px;
-      width: 30px;
-      height: 5px;
-      background: red;
-      border-radius: 50%;
-      animation: wave 0.3s infinite linear;
-    }
-
-    @keyframes wave {
-      0% { transform: translateY(0); }
-      25% { transform: translateY(-3px); }
-      50% { transform: translateY(0); }
-      75% { transform: translateY(3px); }
-      100% { transform: translateY(0); }
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+      z-index: 9999;
+      pointer-events: none;
     }
 
     .photon-message {
-      position: absolute;
-      max-width: 220px;
-      background: rgba(0,0,0,0.75);
-      color: white;
-      padding: 10px;
-      border-radius: 8px;
+      position: fixed;
+      max-width: 300px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
       font-size: 14px;
+      z-index: 10000;
       opacity: 1;
       transition: opacity 0.5s ease;
-      z-index: 20;
     }
   </style>
 </head>
 <body>
+
+  <nav>
+    <ul class="navbar">
+      <li><a href="/">Home</a></li>
+      <li class="dropdown">
+        <a href="#">About</a>
+        <ul class="dropdown-menu">
+          <li><a href="/bio">Biography</a></li>
+          <li><a href="/skills">Skills</a></li>
+          <li><a href="/cv">CV</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#">Projects</a>
+        <ul class="dropdown-menu">
+          <li><a href="/photonics">Photonics</a></li>
+          <li><a href="/optics">Optics</a></li>
+          <li><a href="/coding">Coding</a></li>
+        </ul>
+      </li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <h1>My CV</h1>
+  <p>You can download my resume below:</p>
+
   <div class="download-section">
-    <p style="margin-bottom: 80px;">You can download my resume below:</p>
-    <button class="download-button" onclick="startPhoton()">Download CV</button>
+    <a href="#" class="download-button" onclick="spawnPhoton(event)">Download CV</a>
   </div>
 
   <script>
-    function startPhoton() {
-      if (document.querySelector('.sun')) return; // Prevent re-trigger
-
+    function spawnPhoton(event) {
       const sun = document.createElement("div");
       sun.className = "sun";
       document.body.appendChild(sun);
-      setTimeout(() => sun.style.opacity = 1, 50);
 
-      const photon = document.createElement("div");
-      photon.className = "photon";
-      document.body.appendChild(photon);
+      setTimeout(() => {
+        sun.style.opacity = 1;
 
-      const btn = document.querySelector(".download-button");
-      const btnRect = btn.getBoundingClientRect();
-      const targetX = btnRect.left + btnRect.width / 2 - 10;
-      const targetY = btnRect.top + window.scrollY + btnRect.height / 2 - 10;
+        const photon = document.createElement("div");
+        photon.className = "photon";
+        document.body.appendChild(photon);
 
-      const startX = 70;
-      const startY = 70;
-      const mid1X = startX + (targetX - startX) / 3;
-      const mid1Y = startY + (targetY - startY) / 3;
-      const mid2X = startX + 2 * (targetX - startX) / 3;
-      const mid2Y = startY + 2 * (targetY - startY) / 3;
+        const startX = 60;
+        const startY = 130;
 
-      photon.style.left = startX + "px";
-      photon.style.top = startY + "px";
+        const button = document.querySelector(".download-button");
+        const rect = button.getBoundingClientRect();
+        const targetX = rect.left + rect.width / 2;
+        const targetY = rect.top + window.scrollY + rect.height / 2;
 
-      animateTo(photon, startX, startY, mid1X, mid1Y, 800, () => {
-        showMessage("Hi! I am Photon! You released me from the sun by clicking on that button", 3500, () => {
-          animateTo(photon, mid1X, mid1Y, mid2X, mid2Y, 1000, () => {
-            showMessage("Let's see! If I’ve got enough kick, I’ll light up that button and pull Sina’s CV straight out for you!", 5000, () => {
-              animateTo(photon, mid2X, mid2Y, targetX, targetY, 1500, () => {
-                showMessage("Yes! extracting CV for you...", 2500, () => {
-                  btn.classList.add("energized");
-                  setTimeout(() => {
+        photon.style.left = startX + "px";
+        photon.style.top = startY + "px";
+
+        const mid1X = startX + (targetX - startX) * 0.2;
+        const mid1Y = startY + (targetY - startY) * 0.2;
+
+        const mid2X = startX + (targetX - startX) * 0.5;
+        const mid2Y = startY + (targetY - startY) * 0.5;
+
+        animateTo(photon, startX, startY, mid1X, mid1Y, 800, () => {
+          showMessage("Hi! I am Photon! You released me from the sun by clicking on that button", 3500, () => {
+            animateTo(photon, mid1X, mid1Y, mid2X, mid2Y, 1000, () => {
+              showMessage("Let's see! If I’ve got enough kick, I’ll light up that button and pull Sina’s CV straight out for you!", 5000, () => {
+                animateTo(photon, mid2X, mid2Y, targetX, targetY, 1500, () => {
+                  button.classList.add("glow");
+                  showMessage("Yes! extracting CV for you...", 2500, () => {
                     photon.remove();
                     sun.remove();
-                    btn.classList.remove("energized");
+                    button.classList.remove("glow");
                     window.location.href = "Sina.pdf";
-                  }, 1200);
+                  }, targetX, targetY);
                 }, targetX, targetY);
-              });
-            }, mid2X, mid2Y);
-          });
-        }, mid1X, mid1Y);
-      });
+              }, mid2X, mid2Y);
+            }, mid1X, mid1Y);
+          }, mid1X, mid1Y);
+        });
+      }, 300);
     }
 
-    function animateTo(element, fromX, fromY, toX, toY, duration, callback) {
+    function animateTo(element, x1, y1, x2, y2, duration, callback, msgX, msgY) {
       const startTime = performance.now();
-      function step(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const currentX = fromX + (toX - fromX) * progress;
-        const currentY = fromY + (toY - fromY) * progress;
-        element.style.left = currentX + "px";
-        element.style.top = currentY + "px";
-        if (progress < 1) {
-          requestAnimationFrame(step);
+      function animate(time) {
+        const t = Math.min((time - startTime) / duration, 1);
+        const x = x1 + (x2 - x1) * t;
+        const y = y1 + (y2 - y1) * t;
+        element.style.left = x + "px";
+        element.style.top = y + "px";
+        if (t < 1) {
+          requestAnimationFrame(animate);
         } else {
           callback();
         }
       }
-      requestAnimationFrame(step);
+      requestAnimationFrame(animate);
     }
 
     function showMessage(text, duration, callback, x = 90, y = 70) {
@@ -445,5 +553,6 @@ nav {
       }, duration);
     }
   </script>
+
 </body>
 </html>
