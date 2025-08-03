@@ -476,7 +476,7 @@ nav {
         document.body.appendChild(photon);
 
         const startX = 60;
-        const startY = 60;
+        const startY = 130;
 
         const button = document.querySelector(".download-button");
         const rect = button.getBoundingClientRect();
@@ -495,9 +495,9 @@ nav {
 
         // Move to mid1
         animateTo(photon, startX, startY, mid1X, mid1Y, 800, () => {
-          showMessage("Hi! I am Photon!", 2500, () => {
+          showMessage("Hi! I am Photon!You released me from the sun by clicking on that bottom", 2500, () => {
             animateTo(photon, mid1X, mid1Y, mid2X, mid2Y, 1000, () => {
-              showMessage("I should have enough energy to excite the download button and extract Sina's CV for you.", 4000, () => {
+              showMessage("Let's see! If I’ve got enough kick, I’ll light up that button and pull Sina’s CV straight out for you!", 4000, () => {
                 animateTo(photon, mid2X, mid2Y, targetX, targetY, 1500, () => {
                   showMessage("Yes! extracting CV for you...", 2000, () => {
                     photon.remove();
