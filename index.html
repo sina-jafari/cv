@@ -252,6 +252,8 @@ nav {
 
 
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -416,7 +418,7 @@ nav {
       position: fixed;
       left: 90px;
       top: 70px;
-      max-width: 260px;
+      max-width: 300px;
       padding: 12px;
       border-radius: 10px;
       background: #fff;
@@ -474,7 +476,7 @@ nav {
         document.body.appendChild(photon);
 
         const startX = 60;
-        const startY = 130;
+        const startY = 60;
 
         const button = document.querySelector(".download-button");
         const rect = button.getBoundingClientRect();
@@ -484,69 +486,61 @@ nav {
         photon.style.left = startX + "px";
         photon.style.top = startY + "px";
 
-        let midX = startX + (targetX - startX) * 0.2;
-        let midY = startY + (targetY - startY) * 0.2;
+        // Waypoints
+        const mid1X = startX + (targetX - startX) * 0.2;
+        const mid1Y = startY + (targetY - startY) * 0.2;
 
-        const duration1 = 800;
-        const startTime1 = performance.now();
+        const mid2X = startX + (targetX - startX) * 0.5;
+        const mid2Y = startY + (targetY - startY) * 0.5;
 
-        function moveToMidpoint(time) {
-          const t = Math.min((time - startTime1) / duration1, 1);
-          const currentX = startX + (midX - startX) * t;
-          const currentY = startY + (midY - startY) * t;
-          photon.style.left = currentX + "px";
-          photon.style.top = currentY + "px";
+        // Move to mid1
+        animateTo(photon, startX, startY, mid1X, mid1Y, 800, () => {
+          showMessage("Hi! I am Photon!", 2500, () => {
+            animateTo(photon, mid1X, mid1Y, mid2X, mid2Y, 1000, () => {
+              showMessage("I should have enough energy to excite the download button and extract Sina's CV for you.", 4000, () => {
+                animateTo(photon, mid2X, mid2Y, targetX, targetY, 1500, () => {
+                  showMessage("Yes! extracting CV for you...", 2000, () => {
+                    photon.remove();
+                    sun.remove();
+                    window.location.href = "Sina.pdf";
+                  });
+                });
+              });
+            });
+          });
+        });
+      }, 300);
+    }
 
-          if (t < 1) {
-            requestAnimationFrame(moveToMidpoint);
-          } else {
-            showMessageAndContinue();
-          }
+    function animateTo(element, x1, y1, x2, y2, duration, callback) {
+      const startTime = performance.now();
+      function animate(time) {
+        const t = Math.min((time - startTime) / duration, 1);
+        const x = x1 + (x2 - x1) * t;
+        const y = y1 + (y2 - y1) * t;
+        element.style.left = x + "px";
+        element.style.top = y + "px";
+        if (t < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          callback();
         }
+      }
+      requestAnimationFrame(animate);
+    }
 
-        requestAnimationFrame(moveToMidpoint);
-
-        function showMessageAndContinue() {
-          const message = document.createElement("div");
-          message.className = "photon-message";
-          message.innerText = "Hi! I am photon! I probably have enough energy to excite the download button and extract Sina's CV for you. Let's see!";
-          document.body.appendChild(message);
-
-          setTimeout(() => {
-            message.style.opacity = 0;
-            setTimeout(() => {
-              message.remove();
-              continuePhoton();
-            }, 500);
-          }, 8000);
-        }
-
-        function continuePhoton() {
-          const duration2 = 2000;
-          const startX2 = parseFloat(photon.style.left);
-          const startY2 = parseFloat(photon.style.top);
-          const startTime2 = performance.now();
-
-          function animateToButton(time) {
-            const t = Math.min((time - startTime2) / duration2, 1);
-            const currentX = startX2 + (targetX - startX2) * t;
-            const currentY = startY2 + (targetY - startY2) * t;
-            photon.style.left = currentX + "px";
-            photon.style.top = currentY + "px";
-
-            if (t < 1) {
-              requestAnimationFrame(animateToButton);
-            } else {
-              photon.remove();
-              sun.remove();
-              window.location.href = "Sina.pdf";
-            }
-          }
-
-          requestAnimationFrame(animateToButton);
-        }
-
-      }, 300); // initial delay
+    function showMessage(text, duration, callback) {
+      const message = document.createElement("div");
+      message.className = "photon-message";
+      message.innerText = text;
+      document.body.appendChild(message);
+      setTimeout(() => {
+        message.style.opacity = 0;
+        setTimeout(() => {
+          message.remove();
+          callback();
+        }, 500);
+      }, duration);
     }
   </script>
 
