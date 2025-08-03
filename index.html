@@ -387,7 +387,6 @@ nav {
       background-color: #1a242f;
     }
 
-    /* Sun and photon */
     .sun {
       position: fixed;
       top: 100px;
@@ -417,7 +416,7 @@ nav {
       position: fixed;
       left: 90px;
       top: 70px;
-      max-width: 250px;
+      max-width: 260px;
       padding: 12px;
       border-radius: 10px;
       background: #fff;
@@ -431,7 +430,6 @@ nav {
 </head>
 <body>
 
-  <!-- Navigation Bar -->
   <nav>
     <ul class="navbar">
       <li><a href="/">Home</a></li>
@@ -455,7 +453,6 @@ nav {
     </ul>
   </nav>
 
-  <!-- Main CV Section -->
   <h1>My CV</h1>
   <p>You can download my resume below:</p>
 
@@ -476,13 +473,8 @@ nav {
         photon.className = "photon";
         document.body.appendChild(photon);
 
-        const message = document.createElement("div");
-        message.className = "photon-message";
-        message.innerText = "Hi! I am photon! I probably have enough energy to excite the download button and extract Sina's CV for you. Let's see!";
-        document.body.appendChild(message);
-
         const startX = 60;
-        const startY = 100;
+        const startY = 60;
 
         const button = document.querySelector(".download-button");
         const rect = button.getBoundingClientRect();
@@ -492,25 +484,58 @@ nav {
         photon.style.left = startX + "px";
         photon.style.top = startY + "px";
 
-        // Wait 3.5 seconds before moving
-        setTimeout(() => {
-          message.style.opacity = 0;
+        let midX = startX + (targetX - startX) * 0.2;
+        let midY = startY + (targetY - startY) * 0.2;
+
+        const duration1 = 800;
+        const startTime1 = performance.now();
+
+        function moveToMidpoint(time) {
+          const t = Math.min((time - startTime1) / duration1, 1);
+          const currentX = startX + (midX - startX) * t;
+          const currentY = startY + (midY - startY) * t;
+          photon.style.left = currentX + "px";
+          photon.style.top = currentY + "px";
+
+          if (t < 1) {
+            requestAnimationFrame(moveToMidpoint);
+          } else {
+            showMessageAndContinue();
+          }
+        }
+
+        requestAnimationFrame(moveToMidpoint);
+
+        function showMessageAndContinue() {
+          const message = document.createElement("div");
+          message.className = "photon-message";
+          message.innerText = "Hi! I am photon! I probably have enough energy to excite the download button and extract Sina's CV for you. Let's see!";
+          document.body.appendChild(message);
+
           setTimeout(() => {
-            message.remove();
-          }, 500);
+            message.style.opacity = 0;
+            setTimeout(() => {
+              message.remove();
+              continuePhoton();
+            }, 500);
+          }, 5000);
+        }
 
-          const duration = 3000;
-          const startTime = performance.now();
+        function continuePhoton() {
+          const duration2 = 2000;
+          const startX2 = parseFloat(photon.style.left);
+          const startY2 = parseFloat(photon.style.top);
+          const startTime2 = performance.now();
 
-          function animate(time) {
-            const t = Math.min((time - startTime) / duration, 1);
-            const currentX = startX + (targetX - startX) * t;
-            const currentY = startY + (targetY - startY) * t;
+          function animateToButton(time) {
+            const t = Math.min((time - startTime2) / duration2, 1);
+            const currentX = startX2 + (targetX - startX2) * t;
+            const currentY = startY2 + (targetY - startY2) * t;
             photon.style.left = currentX + "px";
             photon.style.top = currentY + "px";
 
             if (t < 1) {
-              requestAnimationFrame(animate);
+              requestAnimationFrame(animateToButton);
             } else {
               photon.remove();
               sun.remove();
@@ -518,9 +543,10 @@ nav {
             }
           }
 
-          requestAnimationFrame(animate);
-        }, 3500);
-      }, 200);
+          requestAnimationFrame(animateToButton);
+        }
+
+      }, 300); // initial delay
     }
   </script>
 
