@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -240,3 +240,94 @@ nav {
 
 </body>
 </html>
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <style>
+  .sun {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle at center, #f9d71c, #f39c12);
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(255, 200, 0, 0.8);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .photon {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    background: #f9f9f9;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    z-index: 9999;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  function spawnPhoton(event) {
+    const sun = document.createElement("div");
+    sun.className = "sun";
+    document.body.appendChild(sun);
+
+    // Wait a moment then launch the photon
+    setTimeout(() => {
+      sun.style.opacity = 1;
+
+      const photon = document.createElement("div");
+      photon.className = "photon";
+      document.body.appendChild(photon);
+
+      const startX = 60;
+      const startY = 60;
+
+      const button = document.querySelector(".download-button");
+      const rect = button.getBoundingClientRect();
+      const targetX = rect.left + rect.width / 2;
+      const targetY = rect.top + window.scrollY + rect.height / 2;
+
+      photon.style.left = startX + "px";
+      photon.style.top = startY + "px";
+
+      // Animate photon
+      const duration = 1000;
+      const startTime = performance.now();
+
+      function animate(time) {
+        const t = Math.min((time - startTime) / duration, 1);
+        const currentX = startX + (targetX - startX) * t;
+        const currentY = startY + (targetY - startY) * t;
+        photon.style.left = currentX + "px";
+        photon.style.top = currentY + "px";
+
+        if (t < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          photon.remove();
+          sun.remove();
+          // Start download after animation
+          window.location.href = "Sina.pdf";
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }, 100);
+  }
+</script>
