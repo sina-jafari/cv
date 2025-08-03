@@ -253,7 +253,6 @@ nav {
 
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -529,9 +528,16 @@ nav {
       const message = document.createElement("div");
       message.className = "photon-message";
       message.innerText = text;
-      message.style.left = (x + 30) + "px";
-      message.style.top = (y - 20) + "px";
+
+      // Random side: left or right of the photon
+      const horizontalOffset = Math.random() < 0.5 ? -220 : 30;
+      const verticalOffset = -30;
+
+      message.style.left = (x + horizontalOffset) + "px";
+      message.style.top = (y + verticalOffset) + "px";
+
       document.body.appendChild(message);
+
       setTimeout(() => {
         message.style.opacity = 0;
         setTimeout(() => {
