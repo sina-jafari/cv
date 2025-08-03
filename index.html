@@ -482,7 +482,7 @@ nav {
         photon.style.left = startX + "px";
         photon.style.top = startY + "px";
 
-        const mid1X = startX + (targetX - startX) * 0.2;
+        const mid1X = startX + (targetX - startX) * 0.3;
         const mid1Y = startY + (targetY - startY) * 0.2;
 
         const mid2X = startX + (targetX - startX) * 0.5;
@@ -491,7 +491,7 @@ nav {
         animateTo(photon, startX, startY, mid1X, mid1Y, 800, () => {
           showMessage("Hi! I am Photon! You released me from the sun by clicking on that button", 3500, () => {
             animateTo(photon, mid1X, mid1Y, mid2X, mid2Y, 1000, () => {
-              showMessage("Let's see! If I’ve got enough kick, I’ll light up that button and pull Sina’s CV straight out for you!", 5000, () => {
+              showMessage("Alright! If I’ve got enough energy, I’ll zap that button and fetch Sina’s CV for you!", 5000, () => {
                 animateTo(photon, mid2X, mid2Y, targetX, targetY, 1500, () => {
                   showMessage("Yes! extracting CV for you...", 2500, () => {
                     photon.remove();
