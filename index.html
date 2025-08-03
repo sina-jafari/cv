@@ -255,7 +255,7 @@ nav {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Sina Jafari – CV</title>
   <style>
     :root {
@@ -283,14 +283,15 @@ nav {
       width: 100vw;
       background-color: var(--nav-bg);
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       overflow: visible;
     }
 
     body::before {
       content: "";
       position: fixed;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       background-color: rgba(255, 255, 255, 0.85);
@@ -393,6 +394,13 @@ nav {
       background-color: #1a242f;
     }
 
+    /* Keep glow color on hover too */
+    .download-button.glow:hover {
+      background-color: #ffdd00;
+      color: black;
+      box-shadow: 0 0 20px #ffcc00;
+    }
+
     .sun {
       position: fixed;
       top: 100px;
@@ -424,7 +432,7 @@ nav {
       padding: 12px;
       border-radius: 10px;
       background: #fff;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       font-size: 14px;
       z-index: 10000;
       opacity: 1;
@@ -466,6 +474,8 @@ nav {
 
   <script>
     function spawnPhoton(event) {
+      event.preventDefault();  // Prevent link from jumping page
+
       const sun = document.createElement("div");
       sun.className = "sun";
       document.body.appendChild(sun);
@@ -483,7 +493,7 @@ nav {
         const button = document.querySelector(".download-button");
         const rect = button.getBoundingClientRect();
         const targetX = rect.left + rect.width / 2;
-        const targetY = rect.top + window.scrollY + rect.height / 2;
+        const targetY = rect.top + rect.height / 2;  // fixed for fixed position
 
         photon.style.left = startX + "px";
         photon.style.top = startY + "px";
@@ -536,7 +546,7 @@ nav {
       message.className = "photon-message";
       message.innerText = text;
 
-      const horizontalOffset = Math.random() < 0.5 ? -220 : 30;
+      const horizontalOffset = 0; // Fixed horizontal offset for consistency
       const verticalOffset = -30;
 
       message.style.left = (x + horizontalOffset) + "px";
