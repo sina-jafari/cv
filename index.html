@@ -258,132 +258,244 @@ nav {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sina's CV</title>
+  <title>Sina Jafari – CV</title>
   <style>
-    body {
+    :root {
+      --bg-color: #fdfdfd;
+      --text-color: #333;
+      --nav-bg: #007acc;
+      --nav-hover-bg: #005f99;
+      --accent-color: #2c3e50;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: Arial, sans-serif;
+      padding: 0;
+    }
+
+    body {
+      font-size: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    nav {
+      width: 100vw;
+      background-color: var(--nav-bg);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      overflow: visible;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.85);
+      z-index: -1;
+    }
+
+    .navbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .navbar .dropdown-menu {
+      list-style: none !important;
+    }
+    .navbar > li {
+      position: relative;
+    }
+
+    .navbar > li > a {
+      font-size: 20px;
+      display: block;
+      padding: 14px 20px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .navbar > li > a:hover {
+      background-color: var(--nav-hover-bg);
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: var(--nav-bg);
+      min-width: 160px;
+      z-index: 999;
+      flex-direction: column;
+    }
+
+    .dropdown-menu li a {
+      padding: 12px 16px;
+      display: block;
+      color: white;
+      text-decoration: none;
+    }
+
+    .dropdown-menu li a:hover {
+      background-color: var(--nav-hover-bg);
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    h1 {
+      color: var(--accent-color);
       text-align: center;
-      background-color: #fdfdfd;
-      height: 100vh;
+      margin: 100px 0 10px;
+    }
+
+    p {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .download-section {
+      text-align: center;
+      margin-top: 40px;
     }
 
     .download-button {
-      margin-top: 200px;
-      font-size: 20px;
-      padding: 12px 24px;
-      background-color: #007acc;
+      display: inline-block;
+      padding: 14px 30px;
+      font-size: 18px;
+      background-color: var(--accent-color);
       color: white;
       border: none;
       border-radius: 6px;
       cursor: pointer;
+      text-decoration: none;
       transition: background-color 0.3s;
-      z-index: 1;
       position: relative;
+      z-index: 2;
     }
 
     .download-button:hover {
-      background-color: #005b99;
+      background-color: #1a242f;
     }
 
-    /* Full-screen SVG overlay */
-    #photon-animation {
+    /* Sun and photon */
+    .sun {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
+      top: 30px;
+      left: 30px;
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle at center, #f9d71c, #f39c12);
+      border-radius: 50%;
+      box-shadow: 0 0 40px rgba(255, 200, 0, 0.8);
       z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .photon {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      background: #f9f9f9;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+      z-index: 9999;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
 
-  <!-- Download Button -->
-  <button class="download-button" onclick="startPhotonAnimation(event)">
-    Download CV
-  </button>
+  <!-- Navigation Bar -->
+  <nav>
+    <ul class="navbar">
+      <li><a href="/">Home</a></li>
+      <li class="dropdown">
+        <a href="#">About</a>
+        <ul class="dropdown-menu">
+          <li><a href="/bio">Biography</a></li>
+          <li><a href="/skills">Skills</a></li>
+          <li><a href="/cv">CV</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#">Projects</a>
+        <ul class="dropdown-menu">
+          <li><a href="/photonics">Photonics</a></li>
+          <li><a href="/optics">Optics</a></li>
+          <li><a href="/coding">Coding</a></li>
+        </ul>
+      </li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+  </nav>
 
-  <!-- Animation Layer -->
-  <svg id="photon-animation"></svg>
+  <!-- Main CV Section -->
+  <h1>My CV</h1>
+  <p>You can download my resume below:</p>
+
+  <div class="download-section">
+    <a href="#" class="download-button" onclick="spawnPhoton(event)">Download CV</a>
+  </div>
 
   <script>
-    function startPhotonAnimation(event) {
-      event.preventDefault(); // Prevent default button behavior
+    function spawnPhoton(event) {
+      const sun = document.createElement("div");
+      sun.className = "sun";
+      document.body.appendChild(sun);
 
-      const svg = document.getElementById('photon-animation');
-      svg.innerHTML = ''; // Clear previous animation
+      // Wait a moment then launch the photon
+      setTimeout(() => {
+        sun.style.opacity = 1;
 
-      // SUN
-      const sun = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      sun.setAttribute("cx", 80);
-      sun.setAttribute("cy", 80);
-      sun.setAttribute("r", 30);
-      sun.setAttribute("fill", "orange");
-      svg.appendChild(sun);
+        const photon = document.createElement("div");
+        photon.className = "photon";
+        document.body.appendChild(photon);
 
-      // PATH from sun to button
-      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      const button = document.querySelector(".download-button");
-      const rect = button.getBoundingClientRect();
-      const endX = rect.left + rect.width / 2;
-      const endY = rect.top + window.scrollY + rect.height / 2;
-      const d = `M 80 80 C 200 100, ${endX - 100} ${endY - 100}, ${endX} ${endY}`;
-      path.setAttribute("d", d);
-      path.setAttribute("fill", "none");
-      svg.appendChild(path);
+        const startX = 60;
+        const startY = 60;
 
-      // RED PHOTON (head)
-      const photon = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      photon.setAttribute("r", 10);
-      photon.setAttribute("fill", "red");
-      svg.appendChild(photon);
+        const button = document.querySelector(".download-button");
+        const rect = button.getBoundingClientRect();
+        const targetX = rect.left + rect.width / 2;
+        const targetY = rect.top + window.scrollY + rect.height / 2;
 
-      // WAVE TAIL
-      const waveTail = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      waveTail.setAttribute("stroke", "red");
-      waveTail.setAttribute("fill", "none");
-      waveTail.setAttribute("stroke-width", "2");
-      waveTail.setAttribute("d", `M0,0 ${generateWavePath(40, 8, 6)}`);
-      svg.appendChild(waveTail);
+        photon.style.left = startX + "px";
+        photon.style.top = startY + "px";
 
-      function animatePhoton() {
-        const length = path.getTotalLength();
-        let progress = 0;
+        // Animate photon
+        const duration = 1000;
+        const startTime = performance.now();
 
-        const interval = setInterval(() => {
-          const pt = path.getPointAtLength(progress);
-          photon.setAttribute("cx", pt.x);
-          photon.setAttribute("cy", pt.y);
-          waveTail.setAttribute("transform", `translate(${pt.x - 45}, ${pt.y})`);
-          progress += 2; // control speed here
+        function animate(time) {
+          const t = Math.min((time - startTime) / duration, 1);
+          const currentX = startX + (targetX - startX) * t;
+          const currentY = startY + (targetY - startY) * t;
+          photon.style.left = currentX + "px";
+          photon.style.top = currentY + "px";
 
-          if (progress >= length) {
-            clearInterval(interval);
-            svg.innerHTML = ''; // remove animation
-
-            // Trigger actual download
-            const a = document.createElement("a");
-            a.href = "Sina.pdf";
-            a.download = "Sina.pdf";
-            a.click();
+          if (t < 1) {
+            requestAnimationFrame(animate);
+          } else {
+            photon.remove();
+            sun.remove();
+            // Start download after animation
+            window.location.href = "Sina.pdf";
           }
-        }, 16); // ~60 FPS
-      }
+        }
 
-      animatePhoton();
-    }
-
-    function generateWavePath(width, height, cycles) {
-      let d = "";
-      const points = 100;
-      for (let i = 0; i <= points; i++) {
-        const x = (i / points) * width;
-        const y = height * Math.sin((i / points) * cycles * 2 * Math.PI);
-        d += `L ${x} ${y} `;
-      }
-      return d;
+        requestAnimationFrame(animate);
+      }, 100);
     }
   </script>
 
