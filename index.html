@@ -482,7 +482,7 @@ nav {
         document.body.appendChild(message);
 
         const startX = 60;
-        const startY = 60;
+        const startY = 100;
 
         const button = document.querySelector(".download-button");
         const rect = button.getBoundingClientRect();
@@ -499,7 +499,7 @@ nav {
             message.remove();
           }, 500);
 
-          const duration = 2000;
+          const duration = 3000;
           const startTime = performance.now();
 
           function animate(time) {
