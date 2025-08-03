@@ -254,10 +254,10 @@ nav {
 
 
 
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Sina Jafari – CV</title>
   <style>
     :root {
@@ -275,18 +275,10 @@ nav {
     }
 
     body {
-      font-size: 20px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: var(--bg-color);
       color: var(--text-color);
-    }
-
-    nav {
-      width: 100vw;
-      background-color: var(--nav-bg);
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      overflow: visible;
+      font-size: 20px;
     }
 
     body::before {
@@ -299,27 +291,29 @@ nav {
       z-index: -1;
     }
 
+    nav {
+      width: 100vw;
+      background-color: var(--nav-bg);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
     .navbar {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
       list-style: none;
-      padding: 0;
-      margin: 0;
     }
-    .navbar .dropdown-menu {
-      list-style: none !important;
-    }
-    .navbar > li {
+
+    .navbar li {
       position: relative;
     }
 
     .navbar > li > a {
-      font-size: 20px;
       display: block;
       padding: 14px 20px;
       color: white;
       text-decoration: none;
+      font-size: 20px;
     }
 
     .navbar > li > a:hover {
@@ -333,13 +327,17 @@ nav {
       left: 0;
       background-color: var(--nav-bg);
       min-width: 160px;
+      list-style: none;
       z-index: 999;
-      flex-direction: column;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
     }
 
     .dropdown-menu li a {
-      padding: 12px 16px;
       display: block;
+      padding: 12px 16px;
       color: white;
       text-decoration: none;
     }
@@ -348,13 +346,9 @@ nav {
       background-color: var(--nav-hover-bg);
     }
 
-    .dropdown:hover .dropdown-menu {
-      display: block;
-    }
-
     h1 {
-      color: var(--accent-color);
       text-align: center;
+      color: var(--accent-color);
       margin: 100px 0 10px;
     }
 
@@ -366,6 +360,7 @@ nav {
     .download-section {
       text-align: center;
       margin-top: 40px;
+      position: relative;
     }
 
     .download-button {
@@ -378,7 +373,6 @@ nav {
       border-radius: 6px;
       cursor: pointer;
       text-decoration: none;
-      transition: background-color 0.3s;
       position: relative;
       z-index: 2;
     }
@@ -387,30 +381,56 @@ nav {
       background-color: #1a242f;
     }
 
-    /* Sun and photon */
     .sun {
-      position: fixed;
+      position: absolute;
       top: 30px;
       left: 30px;
-      width: 60px;
-      height: 60px;
-      background: radial-gradient(circle at center, #f9d71c, #f39c12);
+      width: 50px;
+      height: 50px;
+      background: radial-gradient(circle, #FFD700, #FFA500);
       border-radius: 50%;
-      box-shadow: 0 0 40px rgba(255, 200, 0, 0.8);
-      z-index: 9999;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      box-shadow: 0 0 20px rgba(255, 165, 0, 0.8);
+      z-index: 10;
+      animation: sun-pop 0.4s ease-out;
+    }
+
+    @keyframes sun-pop {
+      from {
+        transform: scale(0);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
 
     .photon {
-      position: fixed;
-      width: 12px;
-      height: 12px;
-      background: #f9f9f9;
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
       border-radius: 50%;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-      z-index: 9999;
-      pointer-events: none;
+      animation: photon-wave 2.5s ease-in-out forwards;
+      z-index: 10;
+    }
+
+    @keyframes photon-wave {
+      0% {
+        transform: translate(30px, 30px) rotate(0deg);
+      }
+      25% {
+        transform: translate(150px, 80px) rotate(90deg);
+      }
+      50% {
+        transform: translate(300px, 150px) rotate(180deg);
+      }
+      75% {
+        transform: translate(450px, 100px) rotate(270deg);
+      }
+      100% {
+        transform: translate(calc(50vw - 60px), 200px);
+      }
     }
   </style>
 </head>
@@ -440,62 +460,39 @@ nav {
     </ul>
   </nav>
 
-  <!-- Main CV Section -->
   <h1>My CV</h1>
   <p>You can download my resume below:</p>
 
   <div class="download-section">
-    <a href="#" class="download-button" onclick="spawnPhoton(event)">Download CV</a>
+    <a href="#" class="download-button" onclick="launchPhoton(event)">Download CV</a>
   </div>
 
   <script>
-    function spawnPhoton(event) {
-      const sun = document.createElement("div");
-      sun.className = "sun";
-      document.body.appendChild(sun);
+    function launchPhoton(event) {
+      event.preventDefault();
+      const section = document.querySelector('.download-section');
 
-      // Wait a moment then launch the photon
+      const sun = document.createElement('div');
+      sun.className = 'sun';
+      section.appendChild(sun);
+
+      const photon = document.createElement('div');
+      photon.className = 'photon';
+      section.appendChild(photon);
+
+      // Wait for animation to finish, then download
       setTimeout(() => {
-        sun.style.opacity = 1;
+        const link = document.createElement('a');
+        link.href = 'Sina.pdf';
+        link.download = 'Sina.pdf';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
 
-        const photon = document.createElement("div");
-        photon.className = "photon";
-        document.body.appendChild(photon);
-
-        const startX = 60;
-        const startY = 60;
-
-        const button = document.querySelector(".download-button");
-        const rect = button.getBoundingClientRect();
-        const targetX = rect.left + rect.width / 2;
-        const targetY = rect.top + window.scrollY + rect.height / 2;
-
-        photon.style.left = startX + "px";
-        photon.style.top = startY + "px";
-
-        // Animate photon
-        const duration = 1000;
-        const startTime = performance.now();
-
-        function animate(time) {
-          const t = Math.min((time - startTime) / duration, 1);
-          const currentX = startX + (targetX - startX) * t;
-          const currentY = startY + (targetY - startY) * t;
-          photon.style.left = currentX + "px";
-          photon.style.top = currentY + "px";
-
-          if (t < 1) {
-            requestAnimationFrame(animate);
-          } else {
-            photon.remove();
-            sun.remove();
-            // Start download after animation
-            window.location.href = "Sina.pdf";
-          }
-        }
-
-        requestAnimationFrame(animate);
-      }, 100);
+        // Clean up
+        sun.remove();
+        photon.remove();
+      }, 2600);
     }
   </script>
 
