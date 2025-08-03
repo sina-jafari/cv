@@ -180,7 +180,7 @@ nav {
 <body>
 
   <!-- Navigation Bar -->
-  <nav>
+<!--   <nav>
     <div class="container">
     <ul class="navbar">
     <ul class="navbar">
@@ -211,10 +211,10 @@ nav {
 
   <div class="download-section">
     <a href="Sina.pdf" download class="download-button" onclick="spawnEmojis(event)">Download CV</a>
-  </div>
+  </div> -->
 
   <!-- Emoji Animation -->
-  <script>
+<!--   <script>
     function spawnEmojis(event) {
       const button = event.target;
       const numEmojis = 2;
@@ -239,7 +239,7 @@ nav {
   </script>
 
 </body>
-</html>
+</html> -->
  -->
 
 
@@ -254,80 +254,250 @@ nav {
 
 
 
-      <style>
-  .sun {
-    position: fixed;
-    top: 30px;
-    left: 30px;
-    width: 60px;
-    height: 60px;
-    background: radial-gradient(circle at center, #f9d71c, #f39c12);
-    border-radius: 50%;
-    box-shadow: 0 0 40px rgba(255, 200, 0, 0.8);
-    z-index: 9999;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sina Jafari – CV</title>
+  <style>
+    :root {
+      --bg-color: #fdfdfd;
+      --text-color: #333;
+      --nav-bg: #007acc;
+      --nav-hover-bg: #005f99;
+      --accent-color: #2c3e50;
+    }
 
-  .photon {
-    position: fixed;
-    width: 12px;
-    height: 12px;
-    background: #f9f9f9;
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-    z-index: 9999;
-    pointer-events: none;
-  }
-</style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-<script>
-  function spawnPhoton(event) {
-    const sun = document.createElement("div");
-    sun.className = "sun";
-    document.body.appendChild(sun);
+    body {
+      font-size: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+    }
 
-    // Wait a moment then launch the photon
-    setTimeout(() => {
-      sun.style.opacity = 1;
+    nav {
+      width: 100vw;
+      background-color: var(--nav-bg);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      overflow: visible;
+    }
 
-      const photon = document.createElement("div");
-      photon.className = "photon";
-      document.body.appendChild(photon);
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.85);
+      z-index: -1;
+    }
 
-      const startX = 60;
-      const startY = 60;
+    .navbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .navbar .dropdown-menu {
+      list-style: none !important;
+    }
+    .navbar > li {
+      position: relative;
+    }
 
-      const button = document.querySelector(".download-button");
-      const rect = button.getBoundingClientRect();
-      const targetX = rect.left + rect.width / 2;
-      const targetY = rect.top + window.scrollY + rect.height / 2;
+    .navbar > li > a {
+      font-size: 20px;
+      display: block;
+      padding: 14px 20px;
+      color: white;
+      text-decoration: none;
+    }
 
-      photon.style.left = startX + "px";
-      photon.style.top = startY + "px";
+    .navbar > li > a:hover {
+      background-color: var(--nav-hover-bg);
+    }
 
-      // Animate photon
-      const duration = 1000;
-      const startTime = performance.now();
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: var(--nav-bg);
+      min-width: 160px;
+      z-index: 999;
+      flex-direction: column;
+    }
 
-      function animate(time) {
-        const t = Math.min((time - startTime) / duration, 1);
-        const currentX = startX + (targetX - startX) * t;
-        const currentY = startY + (targetY - startY) * t;
-        photon.style.left = currentX + "px";
-        photon.style.top = currentY + "px";
+    .dropdown-menu li a {
+      padding: 12px 16px;
+      display: block;
+      color: white;
+      text-decoration: none;
+    }
 
-        if (t < 1) {
-          requestAnimationFrame(animate);
-        } else {
-          photon.remove();
-          sun.remove();
-          // Start download after animation
-          window.location.href = "Sina.pdf";
+    .dropdown-menu li a:hover {
+      background-color: var(--nav-hover-bg);
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    h1 {
+      color: var(--accent-color);
+      text-align: center;
+      margin: 100px 0 10px;
+    }
+
+    p {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .download-section {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .download-button {
+      display: inline-block;
+      padding: 14px 30px;
+      font-size: 18px;
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s;
+      position: relative;
+      z-index: 2;
+    }
+
+    .download-button:hover {
+      background-color: #1a242f;
+    }
+
+    /* Sun and photon */
+    .sun {
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle at center, #f9d71c, #f39c12);
+      border-radius: 50%;
+      box-shadow: 0 0 40px rgba(255, 200, 0, 0.8);
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .photon {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      background: #f9f9f9;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+      z-index: 9999;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <ul class="navbar">
+      <li><a href="/">Home</a></li>
+      <li class="dropdown">
+        <a href="#">About</a>
+        <ul class="dropdown-menu">
+          <li><a href="/bio">Biography</a></li>
+          <li><a href="/skills">Skills</a></li>
+          <li><a href="/cv">CV</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#">Projects</a>
+        <ul class="dropdown-menu">
+          <li><a href="/photonics">Photonics</a></li>
+          <li><a href="/optics">Optics</a></li>
+          <li><a href="/coding">Coding</a></li>
+        </ul>
+      </li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main CV Section -->
+  <h1>My CV</h1>
+  <p>You can download my resume below:</p>
+
+  <div class="download-section">
+    <a href="#" class="download-button" onclick="spawnPhoton(event)">Download CV</a>
+  </div>
+
+  <script>
+    function spawnPhoton(event) {
+      const sun = document.createElement("div");
+      sun.className = "sun";
+      document.body.appendChild(sun);
+
+      // Wait a moment then launch the photon
+      setTimeout(() => {
+        sun.style.opacity = 1;
+
+        const photon = document.createElement("div");
+        photon.className = "photon";
+        document.body.appendChild(photon);
+
+        const startX = 60;
+        const startY = 60;
+
+        const button = document.querySelector(".download-button");
+        const rect = button.getBoundingClientRect();
+        const targetX = rect.left + rect.width / 2;
+        const targetY = rect.top + window.scrollY + rect.height / 2;
+
+        photon.style.left = startX + "px";
+        photon.style.top = startY + "px";
+
+        // Animate photon
+        const duration = 1000;
+        const startTime = performance.now();
+
+        function animate(time) {
+          const t = Math.min((time - startTime) / duration, 1);
+          const currentX = startX + (targetX - startX) * t;
+          const currentY = startY + (targetY - startY) * t;
+          photon.style.left = currentX + "px";
+          photon.style.top = currentY + "px";
+
+          if (t < 1) {
+            requestAnimationFrame(animate);
+          } else {
+            photon.remove();
+            sun.remove();
+            // Start download after animation
+            window.location.href = "Sina.pdf";
+          }
         }
-      }
 
-      requestAnimationFrame(animate);
-    }, 100);
-  }
-</script>
+        requestAnimationFrame(animate);
+      }, 100);
+    }
+  </script>
+
+</body>
+</html>
