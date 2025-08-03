@@ -497,7 +497,7 @@ nav {
         animateTo(photon, startX, startY, mid1X, mid1Y, 800, () => {
           showMessage("Hi! You released a photon from the sun by clicking on that button!", 3500, () => {
             animateTo(photon, mid1X, mid1Y, mid2X, mid2Y, 1000, () => {
-              showMessage("Alright! If that photon got enough energy, That will zap that button and fetch Sina’s CV for you!", 5000, () => {
+              showMessage("Alright! If it got enough energy, the photon will zap that button and fetch Sina’s CV for you!", 5000, () => {
                 animateTo(photon, mid2X, mid2Y, targetX, targetY, 1500, () => {
                   button.classList.add("glow");
                   showMessage("Yes! extracting CV for you...", 2500, () => {
